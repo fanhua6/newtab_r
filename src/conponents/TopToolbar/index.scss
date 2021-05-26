@@ -1,0 +1,38 @@
+.tool-box{
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  text-shadow: 0 3px 10px rgba( 0, 0, 0, .4 );
+  .iconfont{
+    cursor: pointer;
+    margin-right: 32px;
+    opacity: .4;
+    transition: opacity .3s;
+    &:last-child(){
+      margin-right: 12px;
+    }
+    &:hover{
+      opacity: .7;
+    }
+  }.active{
+    opacity: 1;
+    cursor: default;
+    &:hover{
+      opacity: 1;
+    }
+  }
+  .line{
+    margin-right: 22px;
+    margin-left: -10px;
+    &::after{
+      content: '|';
+      cursor: default;
+      opacity: .4;
+    }
+  }
+  .text-btn{
+    cursor: pointer;
+    position: relative;
+    
+  }
+}

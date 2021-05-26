@@ -1,0 +1,125 @@
+.search{
+  position: relative;
+  .search-body{
+    background-color: #fff;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 25px;
+    border-width: 1px;
+    border-style: solid;
+    display: flex;
+    box-shadow: 0 3px 4px rgba( 0, 0, 0, .1 );
+    border-color: rgba( 0, 0, 0, .1 );
+    .search-engine-box{
+      position: relative;
+      .search-engine{
+        width: 32px;
+        height: 32px;
+        background-color: #eee;
+        margin: 8px 18px;
+        border-radius: 50%;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .search-engine-list{
+        width: 120px;
+        position: absolute;
+        top: 52px;
+        left: 0;
+        background-color: #fff;
+        border: 1px solid rgba( 0, 0, 0, .1 );
+        border-radius: 3px;
+        box-shadow: 0 6px 16px rgba( 0, 0, 0, .1 );
+        padding: 6px 0;
+        .search-engine-item{
+          height: 35px;
+          line-height: 35px;
+          cursor: pointer;
+          .item-icon{
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center;
+            vertical-align: middle;
+            margin: 0 12px;
+          }
+          .item-title{
+            
+          }
+          &:hover{
+            .item-title{
+              color: #009aff;
+            }
+          }
+        }
+      }
+    }
+    .search-input{
+      flex: 1;
+      #searchInput{
+        width: 100%;
+        height: 48px;
+        border: 0 none;
+        outline: none;
+        font-size: 16px;
+      }
+    }
+    .icon-search-px{
+      width: 50px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .icon-gengduo-shuqian-quxiao-px{
+      width: 30px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  }.tips{
+    border-radius: 9px 9px 0 0;
+  }
+  .search-prompt{
+    position: absolute;
+    top: 49px;
+    width: 100%;
+    .prompt-box{
+      background-color: rgba( 255, 255, 255, .9 );
+      box-shadow: 0 3px 4px rgba( 0, 0, 0, .1 );
+      border: 1px solid #009aff;
+      border-top-color: rgba( 0, 0, 0, .1 );
+      border-radius: 0 0 9px 9px;
+      .prompt-item{
+        height: 40px;
+        line-height: 40px;
+        cursor: pointer;
+        font-size: 14px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        .item-icon{
+          display: inline-block;
+          width: 58px;
+          text-align: center;
+          font-style: italic;
+          &.iconfont{
+            font-style: normal;
+          }
+        }
+        .red{
+          color: red;
+        }
+        .new-icon{
+          color: #ff0000;
+          font-style: italic;
+          margin-left: 10px;
+        }
+      }.active{
+        background-color: rgba( 0, 0, 0, .04 );
+      }
+    }
+  }
+}

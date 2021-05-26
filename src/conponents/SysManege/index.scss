@@ -1,0 +1,36 @@
+.sys-manage-body{
+  width: 410px;
+  height: 100%;
+  position: absolute;
+  right: -410px;
+  top: 0;
+  background-color: rgba( 0, 0, 0, .85 );
+  transition: right .5s;
+  color: rgba( 255, 255, 255, .6 );
+  .icon-gengduo-shuqian-quxiao-px{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .sys-tab{
+    height: 79px;
+    line-height: 90px;
+    border-bottom: 1px solid rgba( 255, 255, 255, .3 );
+    text-align: center;
+    .tab-item{
+      margin: 0 6px;
+      cursor: pointer;
+      &.active{
+        font-size: 16px;
+        color: rgba( 255, 255, 255, .9 );
+        cursor: default;
+      }
+    }
+  }
+  .sys-manege-con{
+    
+  }
+}.show{
+  right: 0;
+}
