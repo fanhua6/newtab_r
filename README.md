@@ -71,6 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 ### 配置
+根路径下新建 .env 文件
 #### 1 关闭source map
 GENERATE_SOURCEMAP = false
 #### 2 关闭自动打开浏览器
