@@ -68,3 +68,27 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### 配置
+#### 1 关闭source map
+GENERATE_SOURCEMAP = false
+#### 2 关闭自动打开浏览器
+BROWSER = none
+#### 3 设置本地端口
+PORT = 80
+
+#### 释放webpack配置（注意：此操作不可逆）
+yarn eject
+
+或找到 node_module/react-scripts/config/webpack.config.js
+
+#### 去掉hash
+搜索 '[contenthash:8].' 去掉
+'[hash:8].' 去掉
+
+#### 去掉 chunk.js.LICENSE.txt
+在webpack.config.js中搜索 optimization 对象，
+在 new TerserPlugin 中 sourceMap: shouldUseSourceMap, 下添加
+parallel: true,
+extractComments: false,

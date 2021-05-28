@@ -30,8 +30,8 @@ const getHttpHotword = option => {
 }
 
 const getAssociationalWords = option => {
-  let url = (window.location.hostname === 'localhost' ? option.associationUrl.replace('https://www.baidu.com/', 'http://localhost:3001/baidu/') : option.associationUrl) + option.searchText;
-  
+  let url = (process.env.NODE_ENV === 'development' ? option.associationUrl.replace('https://www.baidu.com/', 'http://localhost:3001/baidu/') : option.associationUrl) + option.searchText;
+  console.log(url)
   return new Promise((resolve, reject) => {
     axiosGet({
       url,
