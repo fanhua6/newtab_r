@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import {assertNotReached} from './assert.m.js';
+import { assertNotReached } from './assert.m.js';
 
 /**
  * @fileoverview PromiseResolver is a helper class that allows creating a
@@ -23,10 +23,10 @@ import {assertNotReached} from './assert.m.js';
 export var PromiseResolver = class {
   constructor() {
     /** @private {function(T=): void} */
-    this.resolve_ = null;
+    this.resolve_ = undefined;
 
     /** @private {function(*=): void} */
-    this.reject_ = null;
+    this.reject_ = undefined;
 
     /** @private {boolean} */
     this.isFulfilled_ = false;
@@ -80,3 +80,4 @@ export var PromiseResolver = class {
     assertNotReached();
   }
 };
+

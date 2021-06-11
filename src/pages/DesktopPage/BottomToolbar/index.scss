@@ -1,0 +1,22 @@
+.botton-toolbar{
+  display: flex;
+  position: absolute;
+  right: 30px;
+  bottom: 12px;
+  .btn-item{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 2px;
+    text-align: center;
+    border: 1px solid var(--theme-border-color);
+    border-radius: 2px;
+    background-color: var(--theme-bg-color);
+    color: var(--theme-font-color);
+    cursor: pointer;
+    transition: all 0.3s linear;
+    &:hover{
+      background-color: rgba( 0, 0, 0, .06 );
+    }
+  }
+}

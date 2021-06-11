@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './index.scss'
 import SearchBox from  '../../containers/common/Search'
+import BottomToolbar from './BottomToolbar';
 
 function DesktopPage (props) {
   const { viewState, fontColor } = props;
@@ -25,6 +26,8 @@ function DesktopPage (props) {
       <div className={['desktop-sidebar', isShowSidebar ? 'show-sidebar' : ''].join(' ')}>
         desktop-sidebar
       </div>
+
+      <BottomToolbar />
     </div>
   )
 }

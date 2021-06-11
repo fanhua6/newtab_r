@@ -32,6 +32,7 @@
         border-radius: 3px;
         box-shadow: 0 6px 16px rgba( 0, 0, 0, .1 );
         padding: 6px 0;
+        color: #222;
         .search-engine-item{
           height: 35px;
           line-height: 35px;
@@ -45,9 +46,6 @@
             background-position: center;
             vertical-align: middle;
             margin: 0 12px;
-          }
-          .item-title{
-            
           }
           &:hover{
             .item-title{
@@ -78,6 +76,7 @@
       text-align: center;
       cursor: pointer;
       font-size: 16px;
+      color: #222;
     }
   }.tips{
     border-radius: 9px 9px 0 0;
@@ -86,6 +85,7 @@
     position: absolute;
     top: 49px;
     width: 100%;
+    color: #222;
     .prompt-box{
       background-color: rgba( 255, 255, 255, .9 );
       box-shadow: 0 3px 4px rgba( 0, 0, 0, .1 );

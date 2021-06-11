@@ -17,17 +17,17 @@
  * @closurePrimitive {asserts.truthy}
  * @suppress {reportUnknownTypes} because T is not sufficiently constrained.
  */
-export const assert = (condition, opt_message) => {
+export function assert(condition, opt_message) {
   if (!condition) {
     let message = 'Assertion failed';
     if (opt_message) {
       message = message + ': ' + opt_message;
     }
     const error = new Error(message);
-    const global = function() {
-      const thisOrSelf = this || window;
+    const global = function () {
+      const thisOrSelf = this || self;
       /** @type {boolean} */
-      thisOrSelf.traceAssertionsForTesting = null;
+      thisOrSelf.traceAssertionsForTesting = undefined;
       return thisOrSelf;
     }();
     if (global.traceAssertionsForTesting) {
@@ -76,8 +76,9 @@ export function assertInstanceof(value, type, opt_message) {
   // message if we don't have to.
   if (!(value instanceof type)) {
     assertNotReached(
-        opt_message ||
-        'Value ' + value + ' is not a[n] ' + (type.name || typeof type));
+      opt_message ||
+      'Value ' + value + ' is not a[n] ' + (type.name || typeof type));
   }
   return value;
 }
+

@@ -18,8 +18,11 @@ const SearchBox = props => {
     searchEngineList,
     isShowSearchEngineList,
     hotWordsList,
+    individuationData,
     actions
   } = props;
+
+  const { isOpenHotword } = individuationData
   
   const associationUrl = searchEngine ? searchEngine.hl : '';
 
@@ -124,7 +127,7 @@ const SearchBox = props => {
 
   useEffect(() => {
     // setPromptIndex(0)
-    if ((searchText === '' || tipsType === 'hotwords') && isFocus && hotWordsList.length) {
+    if ((searchText === '' || tipsType === 'hotwords') && isFocus && isOpenHotword && hotWordsList.length) {
       setIsHaveTips(true)
     } else if (tipsType === 'associational' && searchText.length && isFocus && associationalWords.length){
       setIsHaveTips(true)
@@ -136,7 +139,8 @@ const SearchBox = props => {
     isFocus,
     tipsType,
     hotWordsList,
-    associationalWords
+    associationalWords,
+    isOpenHotword
   ])
   
   const inputOnBlur_ = () => {
@@ -158,11 +162,6 @@ const SearchBox = props => {
     setSearchText('')
     searchTextRef.current.value = ''
     setPromptIndex(0)
-    // setTimeout(() => {
-    //   setIsFocus(true)
-    //   setTipsType('hotwords')
-    //   searchTextRef.current.focus()
-    // }, 200)
   }
 
   return (
@@ -216,6 +215,7 @@ const SearchBox = props => {
           promptIndex={promptIndex}
           associationalWords={associationalWords}
           tipsType={tipsType}
+          individuationData={individuationData}
           setPromptIndex={ i => setPromptIndex(i) }
         />
       }

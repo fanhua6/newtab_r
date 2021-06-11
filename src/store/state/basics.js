@@ -1,6 +1,8 @@
 
 const initialState = {
   viewState: 'desktop',
+  wallpaper: null,
+  wallpaperList: [],
   fontColor: '#222',
   viewStateList: [
     {
@@ -16,6 +18,16 @@ const initialState = {
       value: 'simple'
     },
   ],
+  currentSkinId: '',
+  skinTypeId: 0,
+  loadingSkinId: '',
+  individuationData: {
+    doubleClickIsShow: true,
+    isShowWallpaper: true,
+    skinPlayMode: true,
+    isEmptyCon: false,
+    isOpenHotword: true
+  }
 };
 
 export default initialState;

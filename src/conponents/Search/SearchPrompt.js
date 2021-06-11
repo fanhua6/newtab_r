@@ -3,24 +3,17 @@ import React from 'react'
 import PromptItem from './PromptItem'
 
 const SearchPrompt = props => {
-  const { hotWordsList, searchText, searchEngine, promptIndex, setPromptIndex, tipsType, associationalWords } = props;
-        // [ associationalWords, setAssociationalWords ] = useState([]);
-  // const associationUrl = searchEngine ? searchEngine.hl : '';
-  // console.log(setPromptIndex)
-  // useMemo(() => {
-  //   if(searchText) {
-  //     // console.log(associationUrl, searchText)
-  //     getAssociationalWords({ associationUrl, searchText}).then(res => {
-  //       console.log('getAssociationalWords', res)
-  //       setAssociationalWords(res.g || [])
-  //     }).catch(err => {
-  //       console.log(err)
-  //     })
-  //   }
-  // }, [
-  //   searchText,
-  //   associationUrl
-  // ])
+  const { 
+    hotWordsList, 
+    searchText, 
+    searchEngine, 
+    promptIndex, 
+    setPromptIndex, 
+    tipsType, 
+    individuationData,
+    associationalWords 
+  } = props;
+      
   
   return (
     <div className="search-prompt">
@@ -42,7 +35,7 @@ const SearchPrompt = props => {
             )
           }
         </div> : '')
-        : (hotWordsList.length ? 
+          : (individuationData.isOpenHotword && hotWordsList.length ?
         <div className="prompt-box">
           {
             hotWordsList.map((i, key) => (

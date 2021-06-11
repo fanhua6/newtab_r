@@ -1,0 +1,30 @@
+.switchBox{
+  display: inline-block;
+  .switch{
+    width: 32px;
+    height: 18px;
+    background-color: #ddd;
+    border-radius: 13px;
+    position: relative;
+    cursor: pointer;
+    transition: all .3s;
+    .switchBall{
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      box-shadow: 0 3px 4px rgba( 0, 0, 0, .04 );
+      top: 2px;
+      left: 2px;
+      transition: all .3s;
+    }
+    &.active{
+      background: linear-gradient(90deg,#007eff,#00c0ff);
+      .switchBall{
+        left: calc( 100% - 16px );
+      }
+    }
+  }
+}
