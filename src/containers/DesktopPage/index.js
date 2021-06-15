@@ -4,7 +4,9 @@ import { bindActionCreators } from 'redux';
 import DesktopPage from '../../pages/DesktopPage';
 
 const mapStateToProps = state => ({
-  viewState: state.basics.viewState,
+  wallpaper: state.basics.wallpaper,
+  wallpaperList: state.basics.wallpaperList,
+  skinTypeId: state.basics.skinTypeId,
   fontColor: state.basics.fontColor
 })
 

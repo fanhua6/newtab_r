@@ -4,6 +4,7 @@ import Background from '../containers/common/Background';
 import DesktopPage from '../containers/DesktopPage';
 import SimplePage from '../containers/SimplePage';
 import TopToolbar from '../containers/common/TopToolbar';
+import BottomToolbar from '../containers/common/BottomToolbar';
 import SysManege from '../containers/SysManege';
 import * as api from '../models/httpServer';
 import * as db from '../models/localDB';
@@ -139,30 +140,6 @@ function Index (props) {
     })
   }, [])
 
-  const addWallpaperToLocalStore = useCallback(data => {
-    db.addDataByStore('userStore', { id: 'wallpaper', data }).then(() => {
-      actions.setWallpaper(data)
-    })
-  }, [
-    actions
-  ])
-
-  const putWallpaperDataToLocalStore = useCallback((data, oldData) => {
-    if(oldData.version !== 0) {
-      db.updateByStore('sysStore', { id: 'wallpaperData', ...data }).then(() => {
-        actions.setWallpaperList(data.data)
-      })
-    }else{
-      db.addDataByStore('sysStore', { id: 'wallpaperData', ...data }).then(() => {
-        addWallpaperToLocalStore(data.data[0])
-        actions.setWallpaperList(data.data)
-      })
-    }
-  },[
-    actions,
-    addWallpaperToLocalStore
-  ])
-
   /**
    * obj => { version, data }
    */
@@ -234,28 +211,6 @@ function Index (props) {
     putHotwordsToLocalStore
   ])
 
-  const getHttpWallpaperData = useCallback(options => {
-    api.getHttpWallpaperData(options).then(res => {
-      console.log('getHttpWallpaperData', res)
-      if(res.code === 0) {
-        let wallpaperList = {
-          data: JSON.parse(res.bd.d).sgf[0].cf,
-          version: res.bd.v
-        }
-        console.log(wallpaperList, options)
-        putWallpaperDataToLocalStore(wallpaperList, options)
-      }
-    }).catch(err => {
-      if (err.message.indexOf('code 304')) {
-        console.info('背景数据无更新')
-      } else {
-        console.error(err)
-      }
-    })
-  }, [
-    putWallpaperDataToLocalStore
-  ])
-
   const getLocalHotwordList = useCallback((hotUrl) => {
     db.getDataById('sysStore', 'hotwords').then(res => {
       // console.log('getLocalHotwordList', res)
@@ -280,35 +235,6 @@ function Index (props) {
   }, [
     actions,
     getHttpHotwords
-  ])
-
-  const getLocalWallpaper = useCallback(() => {
-    db.getDataById('userStore', 'wallpaper').then(res => {
-      console.log('getLocalWallpaper', res)
-      if(res) {
-        actions.setWallpaper(res.data)
-      }
-    })
-  },[
-    actions
-  ])
-
-  const getLocalWallpaperList = useCallback(() => {
-    db.getDataById('sysStore', 'wallpaperData').then(res => {
-      console.log('getLocalWallpaperList', res)
-      let options = {
-        version: 0,
-        data: []
-      }
-      if(res) {
-        actions.setWallpaperList(res.data)
-        options = res
-      }
-      getHttpWallpaperData(options)
-    })
-  },[
-    actions,
-    getHttpWallpaperData
   ])
 
   const getLocalSearchEngine = useCallback(() => {
@@ -369,8 +295,6 @@ function Index (props) {
     if (!isConnected) {
       db.connectLocalDB().then(() => {
         setIsConnected(true)
-        getLocalWallpaper()
-        getLocalWallpaperList()
         getLocalSearchEngine()
         getLocalSearchEngineList()
         getLocalIndividuationData()
@@ -380,8 +304,6 @@ function Index (props) {
     }
   }, [ 
     isConnected,
-    getLocalWallpaper,
-    getLocalWallpaperList,
     getLocalSearchEngineList,
     getLocalSearchEngine,
     getLocalIndividuationData
@@ -428,7 +350,6 @@ function Index (props) {
         skinTypeId === 1 && isShowWallpaper &&
         <Background
           isConnected={isConnected}
-          wallpaper={wallpaper}
         />
       }
       {
@@ -449,6 +370,7 @@ function Index (props) {
       <TopToolbar 
         showSysManege={() => setIsShowSysManege(true) }
       />
+      <BottomToolbar />
       <SysManege
         isShow={isShowSysManege}
         closeSysManege={() => setIsShowSysManege(false)}

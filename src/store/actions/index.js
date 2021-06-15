@@ -14,3 +14,5 @@ export const setSearchEngineList = searchEngineList => ({ type: types.SET_SEARCH
 export const setSearchEngineListVersion = searchEngineListVersion => ({ type: types.SET_SEARCH_ENGINE_LIST_VERSION, searchEngineListVersion });
 export const setIsShowSearchEngineList = isShowSearchEngineList => ({ type: types.SET_IS_SHOW_SEARCH_ENGINE_LIST, isShowSearchEngineList });
 export const setHotWordsList = hotWordsList => ({ type: types.SET_HOTWORDS_LIST, hotWordsList });
+
+export const setIsShowSidebar = isShowSidebar => ({ type: types.SET_IS_SHOW_SIDEBAR, isShowSidebar });

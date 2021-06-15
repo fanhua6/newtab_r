@@ -8,7 +8,7 @@ const mapStateToprops = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+  actions: bindActionCreators(actions, dispatch)
 })
 
 export default connect(
