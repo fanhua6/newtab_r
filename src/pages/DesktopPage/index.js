@@ -1,25 +1,36 @@
 import { useState } from 'react'
 import './index.scss'
 import SearchBox from  '../../containers/common/Search'
+import DeskTopSidebar from '../../containers/DesktopPage/Sidebar'
 
 function DesktopPage (props) {
   const { 
-    fontColor 
+    fontColor,
+    isShowSidebar,
+    actions
   } = props;
-  const [ isShowSidebar, setIsShowSidebar ] = useState(false);
+
+  const setIsShowSidebar_ = () => {
+    actions.setIsShowSidebar(false)
+  }
   
   return (
     <div className="desktop" 
       style={{ color: fontColor }}
-      onClick={ () => { setIsShowSidebar(false) } }
+      onClick={ setIsShowSidebar_ }
     >
       <div className={['content', isShowSidebar ? 'show-sidebar' : '' ].join(' ')}>
         <div className="search-box">
           <SearchBox />
         </div>
       </div>
-      <div className={['desktop-sidebar', isShowSidebar ? 'show-sidebar' : ''].join(' ')}>
-        desktop-sidebar
+      <div className={['desktop-sidebar-box', isShowSidebar ? 'show-sidebar' : ''].join(' ')}
+        onClick={ e => { e.stopPropagation() } }
+      >
+        {
+          isShowSidebar && 
+          <DeskTopSidebar />
+        }
       </div>
     </div>
   )

@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
   wallpaper: state.basics.wallpaper,
   wallpaperList: state.basics.wallpaperList,
   skinTypeId: state.basics.skinTypeId,
-  fontColor: state.basics.fontColor
+  fontColor: state.basics.fontColor,
+  isShowSidebar: state.deskTop.isShowSidebar
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -124,8 +124,9 @@
       }
     }
   }
-}.show{
-  right: 0;
+  &.show{
+    right: 0;
+  }
 }
 
 @keyframes rotateAnimation{

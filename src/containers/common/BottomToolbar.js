@@ -4,7 +4,11 @@ import * as actions from '../../store/actions'
 import BottomToolbar from '../../conponents/BottomToolbar'
 
 const mapStateToProps = state => ({
-  isShowSidebar: state.deskTop.isShowSidebar
+  viewState: state.basics.viewState,
+  skinTypeId: state.basics.skinTypeId,
+  wallpaper: state.basics.wallpaper,
+  wallpaperList: state.basics.wallpaperList,
+  individuationData: state.basics.individuationData
 })
 
 const mapDispatchToProps = dispatch => ({
