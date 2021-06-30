@@ -15,6 +15,8 @@ function Index (props) {
   const { 
     viewState, 
     wallpaper,
+    searchEngine,
+    searchEngineList,
     individuationData,
     skinTypeId,
     fontColor,
@@ -25,7 +27,8 @@ function Index (props) {
 
   const [ isShowSysManege, setIsShowSysManege ] = useState(false),
         [ isConnected, setIsConnected ] = useState(false),
-        [ isHiddenAll, setIsHiddenAll ] = useState(false);
+        [ isHiddenAll, setIsHiddenAll ] = useState(false),
+        [ isUpdateSearchEngine, setIsUpdateSearchEngine ] = useState(false);
 
   const prefsChangeListener = useCallback(res => {
     // console.log('changePrefsListener', res, actions)
@@ -57,12 +60,16 @@ function Index (props) {
   const getPrefsData = useCallback(() => {
     sendWithPromise('getPref', 'browser.skin_font_type').then(res => {
       actions.setFontColor(res === 0 ? '#fff' : '#222')
+    }).catch(err => {
+      console.info(err)
     })
     sendWithPromise('getPref', 'browser.skin_skin_type').then(res => {
       actions.setSkinTypeId(res)
       if(res === 1) {
         actions.setFontColor(isShowWallpaper ? '#fff' : '#222')
       }
+    }).catch(err => {
+      console.info(err)
     })
   }, [actions, isShowWallpaper])
 
@@ -79,6 +86,9 @@ function Index (props) {
   const putSearchEngineToLocalStore = useCallback((data, oldData) => {
     if (oldData) {
       // console.log('update search engine')
+      db.updateByStore('userStore', { id: 'searchEngine', data }).then(() => {
+        actions.setSearchEngine(data)
+      })
     } else {
       db.addDataByStore('userStore', { id: 'searchEngine', data }).then(res => {
         // console.log(res, data, 'add Search Engine By User Store')
@@ -140,6 +150,7 @@ function Index (props) {
     })
   }, [])
 
+
   /**
    * obj => { version, data }
    */
@@ -150,11 +161,13 @@ function Index (props) {
         data: JSON.parse(res.bd.d),
         version: res.bd.v
       };
-      // console.log(111, engineList, res)
+      console.log(111, obj, res)
       if(res.code === 0) {
         putSearchEngineDataToLocalStore(engineList, obj.data)
         if(obj.version === 0) {
           putSearchEngineToLocalStore(engineList.data.filter(i => i.d)[0], null)
+        }else{
+          setIsUpdateSearchEngine(true)
         }
       }
     }).catch(err => {
@@ -291,10 +304,26 @@ function Index (props) {
     addIndividuationDataToLocalStore
   ])
 
+  const getLocalViewState = useCallback(() => {
+    db.getDataById('userStore', 'viewState').then(res => {
+      if(res) {
+        actions.changeViewState(res.value)
+      }else{
+        db.addDataByStore('userStore', { id: 'viewState', value: viewState})
+      }
+    }).catch(err => {
+      console.error(err)
+    })
+  }, [
+    actions,
+    viewState
+  ])
+
   useEffect(() => {
     if (!isConnected) {
       db.connectLocalDB().then(() => {
         setIsConnected(true)
+        getLocalViewState()
         getLocalSearchEngine()
         getLocalSearchEngineList()
         getLocalIndividuationData()
@@ -304,10 +333,27 @@ function Index (props) {
     }
   }, [ 
     isConnected,
+    getLocalViewState,
     getLocalSearchEngineList,
     getLocalSearchEngine,
     getLocalIndividuationData
   ]);
+
+  /**
+   * 监听搜索官方引擎数据变化更新用户选择的搜索引擎
+   */
+  useEffect(() => {
+    if(isUpdateSearchEngine && searchEngineList.length && searchEngine) {
+      console.log(searchEngineList, searchEngine, searchEngineList.filter(i => i.id === searchEngine.id)[0])
+      putSearchEngineToLocalStore(searchEngineList.filter(i => i.id === searchEngine.id)[0], searchEngine)
+      setIsUpdateSearchEngine(false)
+    }
+  },[
+    isUpdateSearchEngine,
+    searchEngine,
+    searchEngineList,
+    putSearchEngineToLocalStore
+  ])
 
   const mainClick_ = () => {
     setIsShowSysManege(false)
@@ -317,7 +363,7 @@ function Index (props) {
   const doubleClick_ = e => {
     if (e.clientY > 60 && doubleClickIsShow) {
       if (skinTypeId !== 1) {
-        if (chrome && chrome.send) {
+        if (chrome && typeof chrome.send !== 'undefined') {
           chrome.send('showNonClientAnimation', [isHiddenAll])
         }
       }
@@ -327,7 +373,7 @@ function Index (props) {
 
   const mouseOver_ = e => {
     if(e.clientY < 50){
-      if(isHiddenAll) {
+      if(isHiddenAll && chrome && typeof chrome.send !== 'undefined') {
         chrome.send('showNonClientAnimation', [isHiddenAll])
         setIsHiddenAll(!isHiddenAll)
       }
@@ -358,7 +404,9 @@ function Index (props) {
           {
             viewState === 'desktop' ?
               (
-                <DesktopPage />
+                <DesktopPage 
+                  isConnected={isConnected}
+                />
               ) : (viewState === 'simple' ?
                 (
                   <SimplePage />
@@ -371,10 +419,15 @@ function Index (props) {
         showSysManege={() => setIsShowSysManege(true) }
       />
       <BottomToolbar />
-      <SysManege
-        isShow={isShowSysManege}
-        closeSysManege={() => setIsShowSysManege(false)}
-      />
+      <div className={['sys-manege-box', isShowSysManege ? 'show-manege': ''].join(' ')}>
+        {
+          isShowSysManege && 
+          <SysManege
+            isShowSysManege={isShowSysManege}
+            closeSysManege={() => setIsShowSysManege(false)}
+          />
+        }
+      </div>
     </div>
   )
 }

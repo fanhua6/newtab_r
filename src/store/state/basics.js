@@ -1,6 +1,6 @@
 
 const initialState = {
-  viewState: 'desktop',
+  viewState: 'simple',
   wallpaper: null,
   wallpaperList: [],
   fontColor: '#222',

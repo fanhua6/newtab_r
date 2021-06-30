@@ -1,13 +1,25 @@
 .main{
   width: 100%;
-  min-width: 400px;
+  min-width: 840px;
   height: 100%;
   position: relative;
+  overflow: hidden;
   .page{
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+  }
+  .sys-manege-box{
+    width: 410px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -410px;
+    transition: right .4s;
+    &.show-manege{
+      right: 0;
+    }
   }
 }

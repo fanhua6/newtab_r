@@ -10,7 +10,7 @@ const SkinTabs = props => {
   return (
     <div className="skin-tabs">
       {
-        skinTabs.length && skinTabs.map(i => 
+        skinTabs.length > 0 && skinTabs.map(i => 
           <span className={[ 'skin-tab-item', currentSkinTabId === i.id ? 'active' : '' ].join(' ')}
             onClick={() => changeCurrentSkinTabId(i.id) }
             key={i.id}>

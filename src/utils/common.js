@@ -1,9 +1,9 @@
 /**
  * 
- * @param {*} arg 
+ * @param {*} field , order
  */
-export const compare = arg => {
+export const compare = (field, order = true) => {
   return function(a, b) {
-    return a[arg] - b[arg]
+    return order ? a[field] - b[field] : b[field] - a[field]
   }
 }

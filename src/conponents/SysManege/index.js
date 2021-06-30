@@ -8,7 +8,7 @@ import Individuation from '../../containers/SysManege/Individuation'
 import { sendWithPromise } from '../../utils/cr.m'
 
 const SysManege = props => {
-  const { isShow, closeSysManege, actions } = props
+  const { isShowSysManege, closeSysManege, actions } = props
   const [ sysType, setSysType ] = useState('skin'),
         [ skinTabs, setSkinTabs ] = useState([]),
         [ currentSkinTabId, setCurrentSkinTabId ] = useState(''),
@@ -18,9 +18,13 @@ const SysManege = props => {
   useEffect(() => {
     sendWithPromise('getPref', 'browser.skin_id').then(res => {
       actions.setCurrentSkinId(res)
+    }).catch(err => {
+      console.info(err)
     })
     sendWithPromise('getPref', 'browser.skin_loading_id').then(res => {
       actions.setLoadingSkinId(res)
+    }).catch(err => {
+      console.info(err)
     })
   }, [
     actions
@@ -45,7 +49,7 @@ const SysManege = props => {
   ])
 
   return (
-    <div className={['sys-manage-body', isShow ? 'show' : ''].join(' ')}
+    <div className={['sys-manage-body', isShowSysManege ? 'show' : ''].join(' ')}
       onClick={ e => e.stopPropagation() }
     >
       <span className="iconfont icon-gengduo-shuqian-quxiao-px"

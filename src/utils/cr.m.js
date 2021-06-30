@@ -121,7 +121,7 @@ export function sendWithPromise(methodName, var_args) {
   const promiseResolver = new PromiseResolver();
   const id = methodName + '_' + createUid();
   chromeSendResolverMap[id] = promiseResolver;
-  if(chrome && chrome.send) {
+  if(chrome && typeof chrome.send !== 'undefined') {
     chrome.send(methodName, [id].concat(args));
     return promiseResolver.promise;
   }else{

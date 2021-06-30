@@ -25,6 +25,8 @@ const Individuation = props => {
     console.log('browser.dynamic_skin_play_mode', '此数据无')
     sendWithPromise('getPref', 'browser.dynamic_skin_play_mode').then(res => {
       console.log('browser.dynamic_skin_play_mode', res)
+    }).catch(err => {
+      console.info(err)
     })
   }, [actions])
 

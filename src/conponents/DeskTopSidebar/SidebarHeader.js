@@ -1,7 +1,7 @@
 import React from 'react' 
 
 const SidebarHeader = props => {
-  const { closeSidebar, showAddSite } = props
+  const { closeSidebar, showAddSite, showSearchFn, isShowSearch } = props
   // console.log
 
   return (
@@ -9,8 +9,8 @@ const SidebarHeader = props => {
       <div className="iconfont icon-gengduo-tianjia-px" title="添加自定义图标"
         onClick={ () => showAddSite() }
       ></div>
-      <div className="iconfont icon-gengduo-sousuo-px" 
-        
+      <div className={[ 'iconfont', 'icon-gengduo-sousuo-px', isShowSearch ? 'active' : '' ].join(' ')}
+        onClick={ () => showSearchFn() }
         title="搜索图标">
       </div>
       <div className="title">图标管理</div>

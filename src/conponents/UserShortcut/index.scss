@@ -1,0 +1,73 @@
+.user-shortcut{
+  max-width: 900px;
+  width: 80%;
+  height: 40vh;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  .user-shortcut-page-box{
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    .user-shortcut-page{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      align-content: center;
+      position: absolute;
+      top: 0;
+      .user-shortcut-item{
+        width: 11.11%;
+        min-width: 70px;
+        margin: 2.5vh 0;
+        .shortcut-item{
+          max-width: 62px;
+          margin: 0 auto;
+          position: relative;
+          overflow: inherit;
+          .shortcut-icon{
+            opacity: .9;
+            .remove-btn{
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              background-color: red;
+              background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAX0lEQVQYlV3PUQrCQAyE4bHHsvpUrfcHxR6heonPl2xdNhAI/0wmJNhwRYZe8Q4WfAfTo9jcwIJPmdaaL0gfeSthx9z4lH9NSdR8Omh3c8cZ9z5lFNvCYQpeg9i/+fwB+au6VOHqRvAAAAAASUVORK5CYII=');
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 40%;
+              position: absolute;
+              font-size: 12px;
+              top: -7px;
+              right: -5px;
+              display: none;
+            }
+          }
+        }
+        
+        &.edit{
+          .shortcut-item{
+            .shortcut-icon{
+              animation: shake .5s ease-in-out infinite reverse;
+              .remove-btn{
+                display: block;
+              }
+            }
+            .add-item-btn{
+              animation: none;
+            }
+          }
+        }
+      }
+      
+    }
+  }
+  .page-list{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@keyframes shake{ 0%{ transform: rotate( 0deg ) }  25%{ transform: rotate( -2deg ) } 50%{ transform: rotate( 0deg ) } 75%{ transform: rotate( 2deg ) } 100%{ transform: rotate( 0deg ) } };

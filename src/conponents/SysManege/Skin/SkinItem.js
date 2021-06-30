@@ -38,6 +38,8 @@ const SkinItem = props => {
     }
     sendWithPromise('updateSkin', item).then(res => {
       console.log(res)
+    }).catch(err => {
+      console.info(err)
     })
   }
 
@@ -49,7 +51,7 @@ const SkinItem = props => {
       onClick={() => changeSkin_(item) }
     >
       {
-        item.ti === 'type_3' && 
+        item.ti === 'type_3' && item.pv &&
         <>
           <video className="item-video"
             height="136"

@@ -1,17 +1,22 @@
 import React, { useCallback } from 'react'
 import './index.scss';
+import * as db from '../../models/localDB/'
 
 const TopToolbar = props => {
   const { fontColor, viewState, viewStateList, showSysManege, actions } = props,
         { changeViewState } = actions;
 
   const changeViewState_ = val => {
-    changeViewState(val)
+    db.updateByStore('userStore', { id: 'viewState', value: val }).then(() => {
+      changeViewState(val)
+    }).catch(err => {
+      console.error(err)
+    })
   }
 
   const showSysManege_ = e => {
     e.stopPropagation()
-    showSysManege()
+    showSysManege(e)
   }
 
   return (

@@ -1,0 +1,28 @@
+.shortcut-item{
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  .shortcut-icon{
+    width: 62px;
+    height: 62px;
+    line-height: 62px;
+    background-size: auto 100%;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    .icon-gengduo-tianjia-px{
+      color: #333;
+      font-size: 30px;
+      text-indent: -3px;
+    }
+  }
+  .shortcut-title{
+    margin-top: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &:nth-child(4) {
+    margin-right: 0;
+  }
+}

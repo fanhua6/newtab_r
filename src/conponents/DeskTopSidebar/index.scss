@@ -20,6 +20,9 @@
       &:hover{
         background-color: #f0f0f0;
       }
+      &.active{
+        color: #009aff;
+      }
     }
     .title{
       flex: 1;
@@ -28,24 +31,56 @@
     }
   }
   .search-box{
-    padding: 14px 30px;
+    height: 0;
+    transition: all .4s;
     .search-input{
-      width: 100%;
+      width: calc( 100% - 60px );
       line-height: 30px;
+      // padding: 14px 30px;
       outline: none;
       border: 1px solid rgba( 0, 0, 0, .1 );
       border-radius: 15px;
       padding: 0 24px;
+      margin: 14px 30px;
       &:focus{
         border-color: #009aff;
         box-shadow: 0 0 2px rgba(0,154,255,.75);
       }
     }
+    &.show{
+      height: 60px;
+    }
   }
   .sidebar-con-box{
     flex: 1;
+    overflow-x: hidden;
     overflow-y: auto;
-    background-color: khaki;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    .shortcut-empty{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      color: #e6e6e6;
+      .icon-ss_fond{
+        font-size: 188px;
+      }
+      .shortcut-empty-info{
+        font-size: 18px;
+      }
+    }
+    .shortcut-list-box{
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0px -22px 20px 22px;
+      .sidebar-shortcut-item{
+        width: 62px;
+        margin: 10px 34px 20px 0;
+      }
+    }
   }
   
 }

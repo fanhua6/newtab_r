@@ -1,18 +1,26 @@
 .desktop{
-  display: flex;
-  position: relative;
+  width: 100%;
   height: 100%;
+  overflow: hidden;
+  position: relative;
   .content{
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: width .4s;
+    transition: width .3s;
+    overflow: hidden;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
     .search-box{
       width: 50%;
       height: 50px;
-      margin-top: -400px;
+      // margin: 0 auto;
     }
     &.show-sidebar{
       width: calc( 100% - 400px );
@@ -22,16 +30,20 @@
     width: 399px;
     height: 100%;
     position: absolute;
+    top: 0;
     right: -400px;
     border-left: 1px solid rgba( 0, 0, 0, .1 );
-    opacity: 0;
+    // opacity: 0;
     color: #222;
     background-color: #fff;
     z-index: 1;
-    transition: all .4s;
+    // transition: right .4s;
+    // transition-delay: right 1s;
+    // display: none;
     &.show-sidebar{
       right: 0;
-      opacity: 1;
+      // opacity: 1;
+      // display: block;
     }
   }
 }
