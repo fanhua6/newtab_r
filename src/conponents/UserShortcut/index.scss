@@ -65,8 +65,22 @@
     }
   }
   .page-list{
-    display: flex;
-    justify-content: center;
+    .page-indicator{
+      display: flex;
+      justify-content: center;
+      .page-indicator-item{
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: #7a7a7a;
+        margin: 0 10px;
+        cursor: pointer;
+        &.active{
+          background-color: #dbdbdb;
+        }
+      }
+    }
   }
 }
 

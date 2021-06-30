@@ -92,6 +92,7 @@ const DeskTopSidebar = props => {
         db.updateByStore('userStore', { id: 'shortcutList', data: userShortcutList.data })
       ]).then(() => {
         addUserShortcutList(item)
+        getLocalSysShortcutList()
       }).catch(err => {
         console.error(err)
       })

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react' 
 import './index.scss'
 import UserShortcutPage from './UserShortcutPage'
+import PageIndicator from './PageIndicator'
 
 const UserShortcut = props => {
-  const { userShortcutList, isShowSidebar } = props
+  const { userShortcutList, isShowSidebar, shortcutPageIndex } = props
   
   return (
     <div className="user-shortcut">
@@ -21,7 +22,13 @@ const UserShortcut = props => {
       </div>
 
       <div className="page-list">
-        page list
+        {
+          userShortcutList.length > 1 &&
+          <PageIndicator 
+            count = { userShortcutList.length }
+            shortcutPageIndex = { shortcutPageIndex }
+          />
+        }
       </div>
     </div>
   )

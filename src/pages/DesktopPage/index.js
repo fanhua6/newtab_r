@@ -15,7 +15,8 @@ function DesktopPage (props) {
     actions
   } = props;
 
-  const [ userShortcutList, setUserShortcutList ] = useState([]);
+  const [ userShortcutList, setUserShortcutList ] = useState([]),
+        [ shortcutPageIndex, setShortcutPageIndex ] = useState(0);
 
   const formatUserShortcutList = useCallback(list => {
     list.push({
@@ -67,16 +68,31 @@ function DesktopPage (props) {
     formatUserShortcutList
   ])
 
+  const updataShortcutData = useCallback(newShortcutList => {
+    console.log(123123, newShortcutList)
+    return new Promise((resolve, reject) => {
+      db.getDataById('userStore', 'shortcutList').then(res => {
+        let ids = []
+        res.data.map(i => ids.push(i._id))
+
+        newShortcutList.map(i => i.using = ids.indexOf(i._id) !== -1)
+
+        db.updateByStore('sysStore', { id: 'sysShortcutList', data: newShortcutList }).then(res => {
+          resolve(res)
+        }).catch(err => reject(err))
+      }).catch(err => reject(err))
+    })
+  },[
+  ])
+
   const getHttpShortcatData = useCallback(version => {
-    getHttpSiteData(version).then(res => {
+    getHttpSiteData(version - 1).then(res => {
       if(res && res.code === 0) {
         // console.log(JSON.parse(res.bd.d), res.bd.v)
         let sysShortcutTypes = JSON.parse(res.bd.d).gcf, 
             sysShortcutList = JSON.parse(res.bd.d).cf;
 
         sysShortcutList.sort(compare('pp', false))
-        
-
         sysShortcutTypes.sort(compare('p', false))
         sysShortcutTypes.unshift({
           _id: 'good',
@@ -98,9 +114,10 @@ function DesktopPage (props) {
         }else{
           Promise.all([
             // 此处不能直接覆盖，需更新
-            // db.updateByStore('sysStore', { id: 'sysShortcutTypes', data: sysShortcutTypes }),
-            // db.updateByStore('sysStore', { id: 'sysShortcutList', data: sysShortcutList })
-          ]).then(() => {
+            db.updateByStore('sysStore', { id: 'sysShortcutTypes', data: sysShortcutTypes }),
+            updataShortcutData(sysShortcutList)
+          ]).then(res2 => {
+            console.log(res2)
             db.updateByStore('sysStore', { id: 'shortcutVersion', value: res.bd.v })
             // 此处还需要更新用户数据
           })
@@ -114,7 +131,8 @@ function DesktopPage (props) {
       }
     })
   },[
-    initUserShortcurDB
+    initUserShortcurDB,
+    updataShortcutData
   ])
 
   const getLocalSysShortcutVersion = useCallback(() => {
@@ -141,12 +159,12 @@ function DesktopPage (props) {
   }
 
   const addUserShortcutList = useCallback(item => {
-    console.log(item, userShortcutList)
+    console.log(item)
     // setUserShortcutList(userShortcutList.push(item))
     // setUserShortcutList(formatUserShortcutList(userShortcutList.push(item)))
-    console.log(userShortcutList.push(item))
+    getLocalUserShortcutList()
   }, [
-    userShortcutList
+    getLocalUserShortcutList
   ])
   
   return (
@@ -164,6 +182,7 @@ function DesktopPage (props) {
           <UserShortcut 
             userShortcutList = { userShortcutList }
             isShowSidebar = { isShowSidebar }
+            shortcutPageIndex = { shortcutPageIndex }
           />
         }
       </div>
