@@ -75,9 +75,7 @@ function DesktopPage (props) {
             sysShortcutList = JSON.parse(res.bd.d).cf;
 
         sysShortcutList.sort(compare('pp', false))
-        sysShortcutList.map(i => 
-          i.using = i.ir === 1
-        )
+        
 
         sysShortcutTypes.sort(compare('p', false))
         sysShortcutTypes.unshift({
@@ -86,6 +84,11 @@ function DesktopPage (props) {
         })
         console.log(sysShortcutList)
         if(version === 0) {
+          // 初始化时设置using属性
+          sysShortcutList.map(i => 
+            i.using = i.ir === 1
+          )
+
           Promise.all([
             db.addDataByStore('sysStore', { id: 'sysShortcutTypes', data: sysShortcutTypes }),
             db.addDataByStore('sysStore', { id: 'sysShortcutList', data: sysShortcutList })
